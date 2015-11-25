@@ -26,6 +26,12 @@
     url: "{{ consul_template_download_url }}"
     dest: "/tmp"
 
+- name: dump out consul_template_archive_file
+  debug: var="{{consul_template_archive_file}}"
+
+- name: dump out consul_template_binary
+  debug var="{{consul_template_binary}}"
+
 - name: unzip the downloaded package
   unarchive:
     src: "/tmp/{{ consul_template_archive_file }}"
