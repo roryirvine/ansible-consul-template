@@ -24,7 +24,7 @@
 - name: download consul-template binary
   get_url:
     url: "{{ consul_template_download_url }}"
-    dest: "/tmp"
+    dest: "/tmp/"
 
 - name: dump out consul_template_archive_file
   debug: var="{{consul_template_archive_file}}"
@@ -35,7 +35,7 @@
 - name: unzip the downloaded package
   unarchive:
     src: "/tmp/{{ consul_template_archive_file }}"
-    dest: "/tmp"
+    dest: "/tmp/"
     owner: "root"
     group: "root"
     creates: "/tmp/{{ consul_template_binary }}"
