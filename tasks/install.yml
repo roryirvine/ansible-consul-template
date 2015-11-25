@@ -30,7 +30,7 @@
   debug: var="{{consul_template_archive_file}}"
 
 - name: dump out consul_template_binary
-  debug var="{{consul_template_binary}}"
+  debug: var="{{consul_template_binary}}"
 
 - name: unzip the downloaded package
   unarchive:
