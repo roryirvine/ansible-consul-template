@@ -42,9 +42,11 @@
     creates: "/tmp/{{ consul_template_binary }}"
 
 - name: copy consul-template binary into place
-  copy:
-    src: "/tmp/{{ consul_template_binary }}"
-    dest: "{{ consul_template_home }}/bin/{{ consul_template_binary }}"
+  command: "cp /tmp/{{ consul_template_binary }} {{ consul_template_home }}/bin/{{ consul_template_binary }}"
+
+- name: reset consul-template binary file permissions
+  file:
+    path: "{{ consul_template_home }}/bin/{{ consul_template_binary }}"
     owner: "root"
     group: "root"
     mode: "0755"
