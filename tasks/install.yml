@@ -34,16 +34,24 @@
 
 - name: unzip the downloaded package
   unarchive:
+    copy: no
     src: "/tmp/{{ consul_template_archive_file }}"
     dest: "/tmp/"
     owner: "root"
     group: "root"
     creates: "/tmp/{{ consul_template_binary }}"
 
+- stat:
+    path: "{{ consul_template_home }}/bin/{{ consul_template_binary }}"
+  register: st
+
 - name: copy consul-template binary into place
-  copy:
-    src: "/tmp/{{ consul_template_binary }}"
-    dest: "{{ consul_template_home }}/bin/{{ consul_template_binary }}"
+  command: "cp /tmp/{{ consul_template_binary }} {{ consul_template_home }}/bin/{{ consul_template_binary }}"
+  when: st.stat.isreg is not defined
+
+- name: reset consul-template binary file permissions
+  file:
+    path: "{{ consul_template_home }}/bin/{{ consul_template_binary }}"
     owner: "root"
     group: "root"
     mode: "0755"
@@ -75,3 +83,4 @@
     src={{ consul_template_config_file_template }}
     dest={{ consul_template_home }}/config/{{ consul_template_config_file }}
     mode=0755
+
