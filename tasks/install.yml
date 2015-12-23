@@ -84,8 +84,14 @@
     dest={{ consul_template_home }}/config/{{ consul_template_config_file }}
     mode=0755
 
-- name: restart consul-template
+- name: start consul-template & enable at boot
+  service:
+    name: consul-template
+    state: started
+    enabled: yes
+
+- name: restart consul-template if already started
   service:
     name: consul-template
     state: restarted
-    enabled: yes
+
