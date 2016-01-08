@@ -89,9 +89,3 @@
     name: consul-template
     state: started
     enabled: yes
-
-- name: restart consul-template if already started
-  service:
-    name: consul-template
-    state: restarted
-
